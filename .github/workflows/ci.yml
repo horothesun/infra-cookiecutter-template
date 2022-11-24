@@ -82,6 +82,6 @@ jobs:
     - name: Upload generated project
       uses: actions/upload-artifact@v3
       with:
-        name: generated-project
+        name: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}
         path: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/
         if-no-files-found: error
