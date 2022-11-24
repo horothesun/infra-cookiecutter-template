@@ -13,7 +13,7 @@ env:
   COOKIECUTTER_ENVIRONMENT_PARAM: "prod"
   SCRIPTS_DIR: "infra/scripts"
   TF_DIR: "infra/terraform"
-  TF_ENVIRONMENT_DIR: "infra/terraform/prod"
+  TERRAFORM_PROD_DIR: "infra/terraform/prod"
 
 jobs:
   cookiecutter:
@@ -74,10 +74,10 @@ jobs:
       run: terraform fmt -check -recursive "${TF_DIR}/"
 
     - name: Init generated Terraform
-      run: terraform -chdir="${TF_ENVIRONMENT_DIR}" init -backend=false
+      run: terraform -chdir="${TERRAFORM_PROD_DIR}" init -backend=false
 
     - name: Validate generated Terraform
-      run: terraform -chdir="${TF_ENVIRONMENT_DIR}" validate
+      run: terraform -chdir="${TERRAFORM_PROD_DIR}" validate
 
     - name: Upload generated project
       uses: actions/upload-artifact@v3
