@@ -89,7 +89,7 @@ Retrieve user secret access key with
 ./scripts/get_user_secret_access_key.sh "<IAM_USER_NAME>"
 ```
 
-Retrieve CI role ARN (`{{ cookiecutter._environment_upper }}_CI_ROLE_ARN` secret value) with
+Retrieve CI role ARN (`{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN` secret value) with
 
 ```bash
 ./scripts/get_repo_workflows_role_arn.sh
@@ -108,7 +108,7 @@ Retrieve CI role ARN (`{{ cookiecutter._environment_upper }}_CI_ROLE_ARN` secret
 
 ```bash
 TF_CMD="..." # one of: init, plan, apply
-TF_LOG=trace terraform -chdir="terraform/{{ cookiecutter._environment_lower }}" "${TF_CMD}" &> "${TF_CMD}.log"
+TF_LOG=trace terraform -chdir="terraform/{{ cookiecutter.__environment_lower }}" "${TF_CMD}" &> "${TF_CMD}.log"
 grep "DEBUG: Request" "${TF_CMD}.log"
 ```
 
@@ -148,6 +148,6 @@ grep "DEBUG: Request" "${TF_CMD}.log"
 - Uncomment and apply the following modules
   - `oidc_github`
   - `{{ cookiecutter.github_org }}_{{ cookiecutter.repo_name }}_workflows_role`
-- Set the GitHub Actions `{{ cookiecutter._environment_upper }}_CI_ROLE_ARN` secret
+- Set the GitHub Actions `{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN` secret
   (get the value from `./scripts/get_repo_workflows_role_arn.sh`).
 - Enable the CI workflow ([reference](https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)).

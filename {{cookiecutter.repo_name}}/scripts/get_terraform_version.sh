@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ -z "${TERRAFORM_{{ cookiecutter._environment_upper }}_DIR}" ]] && echo "Error: TERRAFORM_{{ cookiecutter._environment_upper }}_DIR must be defined" && exit 10
+[[ -z "${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" ]] && echo "Error: TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR must be defined" && exit 10
 
 TF_CONFIG_INSPECT_CMD="terraform-config-inspect"
 
@@ -9,7 +9,7 @@ command -v "${TF_CONFIG_INSPECT_CMD}"
 echo "'${TF_CONFIG_INSPECT_CMD}' found!"
 
 TF_CONFIG_INSPECTION=$(
-  "${TF_CONFIG_INSPECT_CMD}" --json "${TERRAFORM_{{ cookiecutter._environment_upper }}_DIR}" | \
+  "${TF_CONFIG_INSPECT_CMD}" --json "${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" | \
     jq --compact-output '.'
 )
 

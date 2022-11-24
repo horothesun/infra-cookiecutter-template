@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  environment = "{{ cookiecutter._environment_lower }}"
+  environment = "{{ cookiecutter.__environment_lower }}"
   account_id  = data.aws_caller_identity.current.account_id
 }
 
@@ -13,7 +13,7 @@ module "terraform_state_bucket" {
   source = "../modules/s3_bucket"
 
   account_id          = local.account_id
-  name                = "tf-state-{{ cookiecutter._tf_state_bucket_postfix_uuid }}"
+  name                = "tf-state-{{ cookiecutter.__tf_state_bucket_postfix_uuid }}"
   force_destroy       = false
   versioning_status   = "Enabled"
   object_lock_enabled = true

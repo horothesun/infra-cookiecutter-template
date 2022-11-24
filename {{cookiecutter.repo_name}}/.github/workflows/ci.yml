@@ -15,7 +15,7 @@ permissions:
 env:
   DEFAULT_SHELL: "bash"
   LOGIN_AWS_REGION: "{{ cookiecutter.aws_region }}"
-  TERRAFORM_{{ cookiecutter._environment_upper }}_DIR: "terraform/{{ cookiecutter._environment_lower }}"
+  TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR: "terraform/{{ cookiecutter.__environment_lower }}"
   TERRAFORM_PLAN_FILE: "workspace.plan"
 
 jobs:
@@ -51,7 +51,7 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter._environment_upper }}_CI_ROLE_ARN {{ '}}' }}
+        role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN {{ '}}' }}
         aws-region: ${{ '{{' }} env.LOGIN_AWS_REGION {{ '}}' }}
 
     - uses: actions/setup-go@v3
@@ -91,7 +91,7 @@ jobs:
 
     - name: Terraform init
       id: init
-      run: terraform -chdir="${TERRAFORM_{{ cookiecutter._environment_upper }}_DIR}" init
+      run: terraform -chdir="${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" init
 
     - name: Post Terraform init
       if: always() && github.ref != 'refs/heads/master' && (steps.init.outcome == 'success' || steps.init.outcome == 'failure')
@@ -105,7 +105,7 @@ jobs:
 
     - name: Terraform plan
       id: plan
-      run: terraform -chdir="${TERRAFORM_{{ cookiecutter._environment_upper }}_DIR}" plan -out "${TERRAFORM_PLAN_FILE}"
+      run: terraform -chdir="${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" plan -out "${TERRAFORM_PLAN_FILE}"
 
     - name: Post Terraform plan
       if: always() && github.ref != 'refs/heads/master' && (steps.plan.outcome == 'success' || steps.plan.outcome == 'failure')
@@ -120,4 +120,4 @@ jobs:
     - name: Terraform apply
       id: apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform -chdir="${TERRAFORM_{{ cookiecutter._environment_upper }}_DIR}" apply -auto-approve "${TERRAFORM_PLAN_FILE}"
+      run: terraform -chdir="${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" apply -auto-approve "${TERRAFORM_PLAN_FILE}"

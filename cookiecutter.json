@@ -30,12 +30,12 @@
     "us-east-2"
   ],
   "new_admin_group_name": "Administrators",
-  "_new_admin_group_name_tf": "{{ cookiecutter.new_admin_group_name|lower|replace('.', '_')|replace('-', '_') }}",
+  "__new_admin_group_name_tf": "{{ cookiecutter.new_admin_group_name|lower|replace('.', '_')|replace('-', '_') }}",
   "new_admin_user": "jdoe",
-  "_new_admin_user_tf": "{{ cookiecutter.new_admin_user|lower|replace('.', '_')|replace('-', '_') }}",
+  "__new_admin_user_tf": "{{ cookiecutter.new_admin_user|lower|replace('.', '_')|replace('-', '_') }}",
   "environment": "prod",
-  "_environment_lower": "{{ cookiecutter.environment|lower|replace('_', '-') }}",
-  "_environment_upper": "{{ cookiecutter.environment|upper|replace('-', '_') }}",
+  "__environment_lower": "{{ cookiecutter.environment|lower|replace('_', '-') }}",
+  "__environment_upper": "{{ cookiecutter.environment|upper|replace('-', '_') }}",
   "_extensions": ["cookiecutter.extensions.UUIDExtension"],
-  "_tf_state_bucket_postfix_uuid": "{{ uuid4() }}"
+  "__tf_state_bucket_postfix_uuid": "{{ uuid4() }}"
 }

@@ -11,7 +11,7 @@ terraform {
   backend "s3" {
     key            = "terraform.tfstate"
     encrypt        = true
-    bucket         = "tf-state-{{ cookiecutter._tf_state_bucket_postfix_uuid }}"
+    bucket         = "tf-state-{{ cookiecutter.__tf_state_bucket_postfix_uuid }}"
     dynamodb_table = "tf-state-lock"
   }
 }

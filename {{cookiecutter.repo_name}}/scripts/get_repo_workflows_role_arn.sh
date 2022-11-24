@@ -1,6 +1,6 @@
 #!/bin/bash
 
-terraform -chdir="terraform/{{ cookiecutter._environment_lower }}" show -json | \
+terraform -chdir="terraform/{{ cookiecutter.__environment_lower }}" show -json | \
   jq --raw-output '
       .values.root_module.child_modules
     | map(select(.address == "module.{{ cookiecutter.github_org }}_{{ cookiecutter.repo_name }}_workflows_role"))[0].resources
