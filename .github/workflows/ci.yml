@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch: # enable manual execution
+
+env:
+  DEFAULT_SHELL: "bash"
+  COOKIECUTTER_REPO_NAME_PARAM: "infra"
+  COOKIECUTTER_ENVIRONMENT_PARAM: "prod"
+  SCRIPTS_DIR: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/scripts
+  TF_DIR: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/terraform
+  TF_ENVIRONMENT_DIR: ${{ env.TF_DIR }}/${{ env.COOKIECUTTER_ENVIRONMENT_PARAM }}
+
+jobs:
+  cookiecutter:
+    name: Cookiecutter
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: ${{ env.DEFAULT_SHELL }}
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10.6
+
+    - name: Install Cookiecutter
+      run: pip install cookiecutter
+
+    - name: Generate project
+      run: |
+        cookiecutter . --no-input --verbose \
+          repo_name="${COOKIECUTTER_REPO_NAME_PARAM}" \
+          environment="${COOKIECUTTER_ENVIRONMENT_PARAM}"
+
+    - name: Run ShellCheck on generated scripts
+      uses: ludeeus/action-shellcheck@1.1.0
+      env:
+        SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
+      with:
+        check_together: yes
+        scandir: "./${SCRIPTS_DIR}"
+
+    - uses: actions/setup-go@v3
+      with:
+        go-version: 1.19.3
+
+    - name: Setup terraform-config-inspect
+      env:
+        # https://pkg.go.dev/github.com/hashicorp/terraform-config-inspect?tab=versions
+        TERRAFORM_CONFIG_INSPECT_VERSION: "v0.0.0-20221020162138-81db043ad408"
+      run: go install "github.com/hashicorp/terraform-config-inspect@${TERRAFORM_CONFIG_INSPECT_VERSION}"
+
+    - name: Get Terraform version
+      run: |
+        cd "${COOKIECUTTER_REPO_NAME_PARAM}"
+        source scripts/get_terraform_version.sh
+        echo "TERRAFORM_VERSION=${TERRAFORM_VERSION}" >> "${GITHUB_ENV}"
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+    - name: Format check generated Terraform
+      run: terraform fmt -check -recursive "${TF_DIR}/"
+
+    - name: Init generated Terraform
+      run: terraform -chdir="${TF_ENVIRONMENT_DIR}" init -backend=false
+
+    - name: Validate generated Terraform
+      run: terraform -chdir="${TF_ENVIRONMENT_DIR}" validate
+
+    - name: Upload generated project
+      uses: actions/upload-artifact@v3
+      with:
+        name: generated-project
+        path: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/
+        if-no-files-found: error
