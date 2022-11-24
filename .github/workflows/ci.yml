@@ -11,9 +11,9 @@ env:
   DEFAULT_SHELL: "bash"
   COOKIECUTTER_REPO_NAME_PARAM: "infra"
   COOKIECUTTER_ENVIRONMENT_PARAM: "prod"
-  SCRIPTS_DIR: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/scripts
-  TF_DIR: ${{ env.COOKIECUTTER_REPO_NAME_PARAM }}/terraform
-  TF_ENVIRONMENT_DIR: ${{ env.TF_DIR }}/${{ env.COOKIECUTTER_ENVIRONMENT_PARAM }}
+  SCRIPTS_DIR: "infra/scripts"
+  TF_DIR: "infra/terraform"
+  TF_ENVIRONMENT_DIR: "infra/terraform/prod"
 
 jobs:
   cookiecutter:
