@@ -51,7 +51,7 @@ jobs:
         scandir: "./${SCRIPTS_DIR}"
 
     - name: Lint generated GitHub workflows
-      run: yamllint "${WORKFLOWS_DIR}"
+      run: yamllint -c ".yamllint" "${WORKFLOWS_DIR}"
 
     - name: Get Terraform version
       run: |
