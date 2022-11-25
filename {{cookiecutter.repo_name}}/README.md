@@ -7,6 +7,7 @@
 ## AWS CLI login/logout
 
 There are two types of login:
+
 - _access key only_ and
 - _access key + session token_.
 
