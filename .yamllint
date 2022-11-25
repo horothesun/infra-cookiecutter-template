@@ -15,8 +15,7 @@ rules:
   comments-indentation:
     level: warning
   document-end: disable
-  document-start:
-    level: warning
+  document-start: disable
   empty-lines: enable
   empty-values: disable
   float-values: disable
@@ -24,7 +23,8 @@ rules:
   indentation: enable
   key-duplicates: enable
   key-ordering: disable
-  line-length: disable
+  line-length:
+    level: warning
   new-line-at-end-of-file: enable
   new-lines: enable
   octal-values: disable
