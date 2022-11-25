@@ -12,6 +12,7 @@ env:
   COOKIECUTTER_PARAM_REPO_NAME: "infra"
   COOKIECUTTER_PARAM_ENVIRONMENT: "prod"
   SCRIPTS_DIR: "infra/scripts"
+  WORKFLOWS_DIR: "infra/.github/workflows"
   TERRAFORM_DIR: "infra/terraform"
   TERRAFORM_PROD_DIR: "infra/terraform/prod"
 
@@ -41,13 +42,16 @@ jobs:
           repo_name="${COOKIECUTTER_PARAM_REPO_NAME}" \
           environment="${COOKIECUTTER_PARAM_ENVIRONMENT}"
 
-    - name: Run ShellCheck on generated scripts
+    - name: ShellCheck generated scripts
       uses: ludeeus/action-shellcheck@1.1.0
       env:
         SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
       with:
         check_together: yes
         scandir: "./${SCRIPTS_DIR}"
+
+    - name: Lint generated GitHub workflows
+      run: yamllint "${WORKFLOWS_DIR}"
 
     - name: Get Terraform version
       run: |
