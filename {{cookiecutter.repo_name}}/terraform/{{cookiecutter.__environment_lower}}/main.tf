@@ -33,7 +33,7 @@ module "oidc_github" {
   source = "../modules/oidc_github"
 }
 
-module "{{ cookiecutter.github_org }}_{{ cookiecutter.repo_name }}_workflows_role" {
+module "{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role" {
   source = "../modules/repo_workflows_role"
 
   oidc_github_arn = module.oidc_github.arn

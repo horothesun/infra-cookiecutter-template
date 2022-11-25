@@ -19,7 +19,7 @@ The _access key only_ login populates the following environment variables
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 
-The _access key + session token_ login popupates the same environment variables
+The _access key + session token_ login populates the same environment variables
 as the _access key only_ login, with the addition of `AWS_SESSION_TOKEN`.
 
 In order to login with the `root` user, perform an _access key only_ login.
@@ -123,12 +123,12 @@ grep "DEBUG: Request" "${TF_CMD}.log"
 - New AWS account with `root` user.
 - Create temporary `root` access key (ID & secret).
 - Locally login as `root` (no session token needed).
-- Temorarily comment out `terraform`'s `s3` `backend`.
-- Temorarily comment out the following modules
+- Temporarily comment out `terraform`'s `s3` `backend`.
+- Temporarily comment out the following modules
   - `terraform_state_bucket`
   - `terraform_state_lock_dynamodb`
   - `oidc_github`
-  - `{{ cookiecutter.github_org }}_{{ cookiecutter.repo_name }}_workflows_role`
+  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
 - Apply the `admin_user_group` module.
 - Get your new non-`root` user's
   - password (`./scripts/get_user_password.sh "<IAM_USER_NAME>"`)
@@ -148,7 +148,7 @@ grep "DEBUG: Request" "${TF_CMD}.log"
 - Uncomment and apply `terraform`'s `s3` `backend`.
 - Uncomment and apply the following modules
   - `oidc_github`
-  - `{{ cookiecutter.github_org }}_{{ cookiecutter.repo_name }}_workflows_role`
+  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
 - Set the GitHub Actions `{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN` secret
   (get the value from `./scripts/get_repo_workflows_role_arn.sh`).
 - Enable the CI workflow ([reference](https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)).
