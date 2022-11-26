@@ -19,6 +19,9 @@ This template will give you a minimal Terraform codebase with
 
 Just generate the project and follow the instructions you'll find in the `README`.
 
+> ⚠️ IMPORTANT: consider keeping your new repo _**private**_, because it will
+> contain sensitive data (e.g. admin user name).
+
 ## Requirements
 
 - Cookiecutter ([install](https://cookiecutter.readthedocs.io/en/latest/installation.html))
@@ -26,6 +29,6 @@ Just generate the project and follow the instructions you'll find in the `README
 ## Generate new project
 
 ```bash
-cookiecutter https://github.com/horothesun/infra-cookiecutter-template
+cookiecutter gh:horothesun/infra-cookiecutter-template
 cd <repo_name>
 ```
