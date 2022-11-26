@@ -1,4 +1,4 @@
-# AWS infrastucture template
+# AWS infrastucture bootstrap template
 
 [![CI](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml/badge.svg)](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml)
 
@@ -9,7 +9,7 @@ Fear no more!
 
 This template will give you a minimal Terraform codebase with
 
-- 👮 non-`root` IAM admin user
+- 👤 non-`root` IAM admin user
 - 💾 remote Terraform state on S3 (with DynamoDB locking)
 - ⚡ CI workflow to continously apply state changes,
   displaying Terraform plans as PR comments
