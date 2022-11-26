@@ -14,7 +14,8 @@ This template will give you a minimal Terraform codebase with
 - ⚡ CI workflow to continously apply state changes,
   displaying Terraform plans as PR comments,
 - 🔐 "AWS Open ID Connect for GitHub" identity provider and
-  "GitHub workflows AWS role" to securely login the CI to your AWS account.
+  "GitHub workflows AWS role" to securely login into your
+  AWS account from the CI.
 
 Just generate the project and follow the instructions you'll find in the `README`.
 
