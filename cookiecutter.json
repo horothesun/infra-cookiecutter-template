@@ -4,6 +4,7 @@
   "__github_org_tf": "{{ cookiecutter.github_org|lower|replace('-', '_') }}",
   "repo_name": "infra",
   "__repo_name_tf": "{{ cookiecutter.repo_name|lower|replace('-', '_') }}",
+  "default_branch": "master",
   "aws_region": [
     "af-south-1",
     "ap-east-1",
