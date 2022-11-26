@@ -2,7 +2,48 @@
 
 [![CI](https://github.com/{{ cookiecutter.github_org }}/{{ cookiecutter.repo_name }}/actions/workflows/ci.yml/badge.svg)](https://github.com/{{ cookiecutter.github_org }}/{{ cookiecutter.repo_name }}/actions/workflows/ci.yml)
 
-> IMPORTANT: this codebase contains sensitive data (e.g. admin user info).
+> IMPORTANT: this codebase contains sensitive data (e.g. admin user name).
+
+## First-time setup
+
+> Legend: 🤖 GitHub, 🌍 AWS web console, 💻 local machine.
+
+- 🌍 Create a temporary access key for the `root` user ([reference](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html)).
+- 💻 Login as `root` ([reference](#aws-cli-login%2Flogout)).
+- 💻 Temporarily comment out `terraform`'s `s3` `backend` from
+  `terraform/{{ cookiecutter.__environment_lower }}/terraform.tf`.
+- 💻 Temporarily comment out the following modules from
+  `terraform/{{ cookiecutter.__environment_lower }}/main.tf`
+  - `terraform_state_bucket`
+  - `terraform_state_lock_dynamodb`
+  - `oidc_github`
+  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
+- 💻 Apply the `admin_user_group` module.
+- 💻 Get your new non-`root` user's
+  - password (`./scripts/get_user_password.sh "<IAM_USER_NAME>"`)
+  - access key ID (`./scripts/get_user_access_key_id.sh "<IAM_USER_NAME>"`)
+  - secret access key (`./scripts/get_user_secret_access_key.sh "<IAM_USER_NAME>"`)
+- 🌍 Login with your new admin user (creating a new password) and
+  activate a Virtual MFA device.
+- 💻 Once the user has correctly logged-in for the first time (with a password update),
+  set `aws_iam_user_login_profile.password_reset_required` value to `false`
+  and apply it in order to reflect the actual state change.
+- 🌍 Secure the `root` user by deleting its access key.
+- 💻 Login with your newly created non-`root` admin user ([reference](#aws-cli-login%2Flogout)).
+- 💻 Uncomment and apply the following modules from
+  `terraform/{{ cookiecutter.__environment_lower }}/main.tf`
+  - `terraform_state_bucket`
+  - `terraform_state_lock_dynamodb`
+- 💻 Uncomment and apply `terraform`'s `s3` `backend` from
+  `terraform/{{ cookiecutter.__environment_lower }}/terraform.tf`.
+- 💻 Uncomment and apply the following modules from
+  `terraform/{{ cookiecutter.__environment_lower }}/main.tf`
+  - `oidc_github`
+  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
+- 💻 Get the CI role ARN value by running `./scripts/get_repo_workflows_role_arn.sh`.
+- 🤖 Set the GitHub Actions `{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN`
+  secret value with the previously retrieved one.
+- ✅ Enjoy your new continously deployed infrastructure!
 
 ## AWS CLI login/logout
 
@@ -112,43 +153,3 @@ TF_CMD="..." # one of: init, plan, apply
 TF_LOG=trace terraform -chdir="terraform/{{ cookiecutter.__environment_lower }}" "${TF_CMD}" &> "${TF_CMD}.log"
 grep "DEBUG: Request" "${TF_CMD}.log"
 ```
-
-## Improvements
-
-- CI: cache `terraform-config-inspect` setup.
-
-## From scratch
-
-- Disable the CI workflow ([reference](https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)).
-- New AWS account with `root` user.
-- Create temporary `root` access key (ID & secret).
-- Locally login as `root` (no session token needed).
-- Temporarily comment out `terraform`'s `s3` `backend`.
-- Temporarily comment out the following modules
-  - `terraform_state_bucket`
-  - `terraform_state_lock_dynamodb`
-  - `oidc_github`
-  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
-- Apply the `admin_user_group` module.
-- Get your new non-`root` user's
-  - password (`./scripts/get_user_password.sh "<IAM_USER_NAME>"`)
-  - access key ID (`./scripts/get_user_access_key_id.sh "<IAM_USER_NAME>"`)
-  - secret access key (`./scripts/get_user_secret_access_key.sh "<IAM_USER_NAME>"`)
-- Login with your new admin user into the AWS web console
-  (creating a new password) and activate a Virtual MFA device.
-- Once the user has correctly logged-in for the first time and updated its password,
-  `terraform apply` after updating the
-  `aws_iam_user_login_profile.password_reset_required` value to `false` in order
-  to reflect the actual state change.
-- Secure the `root` user by deleting its access key.
-- Locally login as your newly created non-`root` admin user.
-- Uncomment and apply the following modules
-  - `terraform_state_bucket`
-  - `terraform_state_lock_dynamodb`
-- Uncomment and apply `terraform`'s `s3` `backend`.
-- Uncomment and apply the following modules
-  - `oidc_github`
-  - `{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_workflows_role`
-- Set the GitHub Actions `{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN` secret
-  (get the value from `./scripts/get_repo_workflows_role_arn.sh`).
-- Enable the CI workflow ([reference](https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)).
