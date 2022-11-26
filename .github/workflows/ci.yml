@@ -16,6 +16,10 @@ env:
   TERRAFORM_DIR: "infra/terraform"
   TERRAFORM_PROD_DIR: "infra/terraform/prod"
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cookiecutter:
     name: Cookiecutter
@@ -52,6 +56,14 @@ jobs:
 
     - name: Lint generated GitHub workflows
       run: yamllint -c ".yamllint" "${WORKFLOWS_DIR}"
+
+    - name: Setup act
+      uses: actionsflow/setup-act@v1
+
+    - name: Test generated GitHub workflow
+      run: |
+        cd "${COOKIECUTTER_PARAM_REPO_NAME}"
+        act -n -P ubuntu-latest=catthehacker/ubuntu:act-latest
 
     - name: Get Terraform version
       run: |
