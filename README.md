@@ -9,10 +9,10 @@ Fear no more!
 
 This template will give you a minimal Terraform codebase with
 
-- 👤 non-`root` IAM admin user
-- 💾 remote Terraform state on S3 (with DynamoDB locking)
+- 👤 non-`root` IAM admin user,
+- 💾 remote Terraform state on S3 (with DynamoDB locking),
 - ⚡ CI workflow to continously apply state changes,
-  displaying Terraform plans as PR comments
+  displaying Terraform plans as PR comments,
 - 🔐 "AWS Open ID Connect for GitHub" identity provider and
   "GitHub workflows AWS role" to securely login the CI to your AWS account.
 
