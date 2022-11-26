@@ -119,5 +119,5 @@ jobs:
 
     - name: Terraform apply
       id: apply
-      if: github.ref == 'refs/heads/{{ cookiecutter.default_branch }}' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/{{ cookiecutter.default_branch }}' && contains(fromJson('["push", "workflow_dispatch"]'), github.event_name)
       run: terraform -chdir="${TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR}" apply -auto-approve "${TERRAFORM_PLAN_FILE}"
