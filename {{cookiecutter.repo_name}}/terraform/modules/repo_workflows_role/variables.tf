@@ -15,12 +15,11 @@ variable "repo_name" {
   type        = string
 }
 
-variable "allowed_actions" {
-  description = "GitHub workflow role allowed AWS actions"
-  type        = list(string)
-}
-
-variable "resources" {
-  description = "GitHub workflow role AWS actions' target resources"
-  type        = list(string)
+variable "allowed_statements" {
+  description = "GitHub workflow role allowed actions and roles."
+  type = set(object({
+    sid       = string
+    actions   = list(string)
+    resources = list(string)
+  }))
 }

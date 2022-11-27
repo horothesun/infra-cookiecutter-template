@@ -47,9 +47,13 @@ resource "aws_iam_policy" "repo_workflows" {
 }
 
 data "aws_iam_policy_document" "repo_workflows_allowed_actions" {
-  statement {
-    effect    = "Allow"
-    actions   = var.allowed_actions
-    resources = var.resources
+  dynamic "statement" {
+    for_each = var.allowed_statements
+    content {
+      sid       = statement.value.sid
+      effect    = "Allow"
+      actions   = statement.value.actions
+      resources = statement.value.resources
+    }
   }
 }

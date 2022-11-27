@@ -39,20 +39,24 @@ module "{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_wor
   oidc_github_arn = module.oidc_github.arn
   github_org      = "{{ cookiecutter.github_org }}"
   repo_name       = "{{ cookiecutter.repo_name }}"
-  allowed_actions = [
-    "apigateway:*",
-    "cloudwatch:*",
-    "dynamodb:*",
-    "ec2:*",
-    "ecr:*",
-    "ecs:*",
-    "iam:*",
-    "kms:*",
-    "lambda:*",
-    "route53:*",
-    "s3:*",
-    "sts:GetCallerIdentity"
-  ]
-  resources = ["*"]
-
+  allowed_statements = ([
+    {
+      sid = "TerraformApply"
+      actions = [
+        "apigateway:*",
+        "cloudwatch:*",
+        "dynamodb:*",
+        "ec2:*",
+        "ecr:*",
+        "ecs:*",
+        "iam:*",
+        "kms:*",
+        "lambda:*",
+        "route53:*",
+        "s3:*",
+        "sts:GetCallerIdentity"
+      ]
+      resources = ["*"]
+    }
+  ])
 }
