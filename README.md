@@ -3,7 +3,7 @@
 [![CI](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml/badge.svg)](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml)
 
 Can't be bothered to go through the initial setup necessary
-to terraform your AWS account? 🙄
+to terraform your AWS account? 🫣
 
 Fear no more!
 
