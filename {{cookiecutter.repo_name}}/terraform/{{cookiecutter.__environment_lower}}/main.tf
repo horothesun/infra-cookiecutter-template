@@ -52,6 +52,7 @@ module "{{ cookiecutter.__github_org_tf }}_{{ cookiecutter.__repo_name_tf }}_wor
         "iam:*",
         "kms:*",
         "lambda:*",
+        "logs:*",
         "route53:*",
         "s3:*",
         "sts:GetCallerIdentity"
