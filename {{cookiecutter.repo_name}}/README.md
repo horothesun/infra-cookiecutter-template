@@ -134,7 +134,7 @@ Retrieve user secret access key with
 Retrieve CI role ARN (`{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN` secret value) with
 
 ```bash
-./scripts/get_repo_workflows_role_arn.sh
+./scripts/get_repo_workflows_role_arn.sh "{{ cookiecutter.github_org }}" "{{ cookiecutter.repo_name }}"
 ```
 
 ## Notes
