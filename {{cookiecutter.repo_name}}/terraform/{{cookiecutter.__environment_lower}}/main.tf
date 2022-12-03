@@ -12,14 +12,15 @@ module "admin_user_group" {
 module "terraform_state_bucket" {
   source = "../modules/s3_bucket"
 
-  account_id          = local.account_id
-  name                = "tf-state-{{ cookiecutter.__tf_state_bucket_postfix_uuid }}"
-  force_destroy       = false
-  versioning_status   = "Enabled"
-  object_lock_enabled = true
-  with_policy         = true
-  name_tag            = "Main Terraform state bucket"
-  environment_tag     = local.environment
+  account_id                 = local.account_id
+  name                       = "tf-state-{{ cookiecutter.__tf_state_bucket_postfix_uuid }}"
+  force_destroy              = false
+  versioning_status          = "Enabled"
+  encryption_at_rest_enabled = false
+  object_lock_enabled        = true
+  with_policy                = true
+  name_tag                   = "Main Terraform state bucket"
+  environment_tag            = local.environment
 }
 
 module "terraform_state_lock_dynamodb" {
