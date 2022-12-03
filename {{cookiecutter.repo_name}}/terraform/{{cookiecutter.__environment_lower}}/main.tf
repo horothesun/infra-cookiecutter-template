@@ -16,7 +16,7 @@ module "terraform_state_bucket" {
   name                       = "tf-state-{{ cookiecutter.__tf_state_bucket_postfix_uuid }}"
   force_destroy              = false
   versioning_status          = "Enabled"
-  encryption_at_rest_enabled = true
+  encryption_at_rest_enabled = false
   object_lock_enabled        = true
   with_policy                = true
   name_tag                   = "Main Terraform state bucket"
