@@ -24,6 +24,12 @@ variable "versioning_status" {
   default     = "Disabled"
 }
 
+variable "encryption_at_rest_enabled" {
+  description = "If set to `true`, it enables objects encryption at-rest (KMS-based: recurring costs)."
+  type        = bool
+  default     = true
+}
+
 variable "object_lock_enabled" {
   description = "If set to `true`, the bucket will lock its objects, preventing their deletion or overriding."
   type        = bool
