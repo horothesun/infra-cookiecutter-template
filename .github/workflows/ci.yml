@@ -8,7 +8,6 @@ on:
   workflow_dispatch: # enable manual execution
 
 env:
-  DEFAULT_SHELL: "bash"
   COOKIECUTTER_PARAM_REPO_NAME: "infra"
   COOKIECUTTER_PARAM_ENVIRONMENT: "prod"
   SCRIPTS_DIR: "infra/scripts"
@@ -25,9 +24,6 @@ jobs:
     name: Cookiecutter
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    defaults:
-      run:
-        shell: ${{ env.DEFAULT_SHELL }}
     steps:
 
     - uses: actions/checkout@v3
