@@ -13,22 +13,18 @@ permissions:
   pull-requests: write
 
 env:
-  DEFAULT_SHELL: "bash"
-  LOGIN_AWS_REGION: "{{ cookiecutter.aws_region }}"
+  AWS_REGION: "{{ cookiecutter.aws_region }}"
   TERRAFORM_{{ cookiecutter.__environment_upper }}_DIR: "terraform/{{ cookiecutter.__environment_lower }}"
   TERRAFORM_PLAN_FILE: "workspace.plan"
 
 jobs:
-
-  shellcheck:
-    name: ShellCheck
+  check-and-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 1
-    defaults:
-      run:
-        shell: ${{ '{{' }} env.DEFAULT_SHELL {{ '}}' }}
+    timeout-minutes: 3
     steps:
     - uses: actions/checkout@v3
+
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@1.1.0
       env:
@@ -37,22 +33,11 @@ jobs:
         check_together: yes
         scandir: "./scripts"
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    defaults:
-      run:
-        shell: ${{ '{{' }} env.DEFAULT_SHELL {{ '}}' }}
-    steps:
-
-    - uses: actions/checkout@v3
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN {{ '}}' }}
-        aws-region: ${{ '{{' }} env.LOGIN_AWS_REGION {{ '}}' }}
+        aws-region: ${{ '{{' }} env.AWS_REGION {{ '}}' }}
 
     - uses: actions/setup-go@v3
       with:
