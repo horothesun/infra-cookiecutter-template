@@ -19,7 +19,7 @@ env:
 
 jobs:
   check-and-deploy:
-    name: Deploy
+    name: Check and deploy
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
