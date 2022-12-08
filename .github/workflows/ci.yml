@@ -11,7 +11,6 @@ env:
   COOKIECUTTER_PARAM_REPO_NAME: "infra"
   COOKIECUTTER_PARAM_ENVIRONMENT: "prod"
   SCRIPTS_DIR: "infra/scripts"
-  WORKFLOWS_DIR: "infra/.github/workflows"
   TERRAFORM_DIR: "infra/terraform"
   TERRAFORM_PROD_DIR: "infra/terraform/prod"
 
@@ -49,9 +48,6 @@ jobs:
       with:
         check_together: yes
         scandir: "./${SCRIPTS_DIR}"
-
-    - name: Lint generated GitHub workflows
-      run: yamllint -c ".yamllint" "${WORKFLOWS_DIR}"
 
     - name: Setup act
       uses: actionsflow/setup-act@v1
