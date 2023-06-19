@@ -1,6 +1,6 @@
 {
-  "terraform_version": "1.4.6",
-  "terraform_aws_provider_version": "5.0.1",
+  "terraform_version": "1.5.0",
+  "terraform_aws_provider_version": "5.4.0",
   "github_org": "octo-org",
   "__github_org_tf": "{{ cookiecutter.github_org|lower|replace('-', '_') }}",
   "repo_name": "infra",
