@@ -33,7 +33,7 @@ jobs:
         python-version: "3.11"
 
     - name: Setup Cookiecutter
-      run: pip install cookiecutter==2.3.0
+      run: pip install cookiecutter==2.3.1
 
     - name: Generate project
       run: |
