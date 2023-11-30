@@ -10,7 +10,6 @@ on:
 env:
   COOKIECUTTER_PARAM_REPO_NAME: "infra"
   COOKIECUTTER_PARAM_ENVIRONMENT: "prod"
-  SCRIPTS_DIR: "infra/scripts"
   TERRAFORM_DIR: "infra/terraform"
   TERRAFORM_PROD_DIR: "infra/terraform/prod"
 
@@ -47,7 +46,7 @@ jobs:
         SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
       with:
         check_together: yes
-        scandir: "./${SCRIPTS_DIR}"
+        scandir: "infra/scripts"
 
     - name: Setup act
       uses: actionsflow/setup-act@v1
