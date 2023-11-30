@@ -23,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Run ShellCheck
-      uses: ludeeus/action-shellcheck@1.1.0
+      uses: ludeeus/action-shellcheck@2.0.0
       env:
         SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
       with:
@@ -34,19 +34,19 @@ jobs:
         scandir: "./scripts"
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN {{ '}}' }}
         aws-region: ${{ '{{' }} env.AWS_REGION {{ '}}' }}
 
-    - uses: actions/setup-go@v3
+    - uses: actions/setup-go@v4
       with:
-        go-version: 1.19
+        go-version: 1.21.4
 
     - name: Setup terraform-config-inspect
       env:
         # https://pkg.go.dev/github.com/hashicorp/terraform-config-inspect?tab=versions
-        TERRAFORM_CONFIG_INSPECT_VERSION: "v0.0.0-20230522202058-dbe9bfcbfe7a"
+        TERRAFORM_CONFIG_INSPECT_VERSION: "v0.0.0-20230925220900-5a6f8d18746d"
       run: go install "github.com/hashicorp/terraform-config-inspect@${TERRAFORM_CONFIG_INSPECT_VERSION}"
 
     - name: Get Terraform version
@@ -55,7 +55,7 @@ jobs:
         echo "TERRAFORM_VERSION=${TERRAFORM_VERSION}" >> "${GITHUB_ENV}"
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ '{{' }} env.TERRAFORM_VERSION {{ '}}' }}
 
