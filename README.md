@@ -1,6 +1,7 @@
 # AWS infrastucture bootstrap template
 
 [![CI](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml/badge.svg)](https://github.com/horothesun/infra-cookiecutter-template/actions/workflows/ci.yml)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg?style=flat-square)](https://renovatebot.com)
 
 Can't be bothered to go through the initial setup necessary
 to terraform your AWS account? 🫣
