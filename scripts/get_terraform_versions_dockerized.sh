@@ -9,9 +9,9 @@ ALL_TERRAFORM_VERSIONS=$( docker run --rm --volume ".:/go/external" "${DOCKER_IM
 echo "ALL_TERRAFORM_VERSIONS: ${ALL_TERRAFORM_VERSIONS}"
 
 TERRAFORM_VERSION=$( echo "${ALL_TERRAFORM_VERSIONS}" | jq --raw-output '.terraform_version' )
-export TERRAFORM_VERSION
 echo "TERRAFORM_VERSION: ${TERRAFORM_VERSION}"
+export TERRAFORM_VERSION
 
 TERRAFORM_AWS_VERSION=$( echo "${ALL_TERRAFORM_VERSIONS}" | jq --raw-output '.terraform_aws_version' )
-export TERRAFORM_AWS_VERSION
 echo "TERRAFORM_AWS_VERSION: ${TERRAFORM_AWS_VERSION}"
+export TERRAFORM_AWS_VERSION
