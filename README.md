@@ -27,6 +27,7 @@ Just generate the project and follow the instructions you'll find in the `README
 ## Requirements
 
 - Cookiecutter ([install](https://cookiecutter.readthedocs.io/en/latest/installation.html))
+- Docker
 
 ## Generate new project
 
