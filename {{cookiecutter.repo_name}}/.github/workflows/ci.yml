@@ -41,12 +41,12 @@ jobs:
 
     - uses: actions/setup-go@v5
       with:
-        go-version: 1.21.4
+        go-version: 1.22.2
 
     - name: Setup terraform-config-inspect
       env:
         # https://pkg.go.dev/github.com/hashicorp/terraform-config-inspect?tab=versions
-        TERRAFORM_CONFIG_INSPECT_VERSION: "v0.0.0-20230925220900-5a6f8d18746d"
+        TERRAFORM_CONFIG_INSPECT_VERSION: "v0.0.0-20240509232506-4708120f8f30"
       run: go install "github.com/hashicorp/terraform-config-inspect@${TERRAFORM_CONFIG_INSPECT_VERSION}"
 
     - name: Get Terraform version
