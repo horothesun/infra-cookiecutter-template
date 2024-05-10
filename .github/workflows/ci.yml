@@ -26,6 +26,14 @@ jobs:
 
     - uses: actions/checkout@v4
 
+    - name: ShellCheck scripts
+      uses: ludeeus/action-shellcheck@2.0.0
+      env:
+        SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
+      with:
+        check_together: yes
+        scandir: "scripts"
+
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
