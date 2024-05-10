@@ -21,10 +21,18 @@ jobs:
   cookiecutter:
     name: Cookiecutter
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
     steps:
 
     - uses: actions/checkout@v4
+
+    - name: ShellCheck scripts
+      uses: ludeeus/action-shellcheck@2.0.0
+      env:
+        SHELLCHECK_OPTS: --severity style --enable all --exclude SC2312 --shell bash
+      with:
+        check_together: yes
+        scandir: "scripts"
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -58,7 +66,7 @@ jobs:
 
     - name: Get Terraform version
       run: |
-        TERRAFORM_VERSION=$(jq --raw-output '.terraform_version' cookiecutter.json)
+        source scripts/get_terraform_versions_dockerized.sh
         echo "TERRAFORM_VERSION=${TERRAFORM_VERSION}" >> "${GITHUB_ENV}"
 
     - name: Setup Terraform
