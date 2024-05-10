@@ -1,6 +1,4 @@
 #!/bin/bash
 
-DOCKER_IMAGE_TAG="tf-config-inspect"
-
-docker build --tag "${DOCKER_IMAGE_TAG}" "."
-docker run --rm --volume ".:/go/external" "${DOCKER_IMAGE_TAG}"
+source scripts/get_terraform_versions_dockerized.sh
+scripts/edit_cookiecutter_json.sh

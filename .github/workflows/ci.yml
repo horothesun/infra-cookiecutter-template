@@ -58,7 +58,7 @@ jobs:
 
     - name: Get Terraform version
       run: |
-        TERRAFORM_VERSION=$(jq --raw-output '.terraform_version' cookiecutter.json)
+        source scripts/get_terraform_versions_dockerized.sh
         echo "TERRAFORM_VERSION=${TERRAFORM_VERSION}" >> "${GITHUB_ENV}"
 
     - name: Setup Terraform
