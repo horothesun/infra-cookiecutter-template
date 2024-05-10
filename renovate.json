@@ -5,6 +5,8 @@
     ":disableDependencyDashboard"
   ],
   "enabledManagers": [
-    "github-actions"
+    "dockerfile",
+    "github-actions",
+    "terraform"
   ]
 }
