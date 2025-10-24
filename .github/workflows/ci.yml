@@ -85,7 +85,7 @@ jobs:
 
     - name: Upload generated project
       if: github.ref == 'refs/heads/master'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: ${{ env.COOKIECUTTER_PARAM_REPO_NAME }}
         path: |
