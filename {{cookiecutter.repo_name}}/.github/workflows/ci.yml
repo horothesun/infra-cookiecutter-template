@@ -34,7 +34,7 @@ jobs:
         scandir: "./scripts"
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v5
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN {{ '}}' }}
         aws-region: ${{ '{{' }} env.AWS_REGION {{ '}}' }}
