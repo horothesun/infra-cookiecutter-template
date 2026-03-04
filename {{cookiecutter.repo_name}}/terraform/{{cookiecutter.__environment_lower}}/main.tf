@@ -23,13 +23,6 @@ module "terraform_state_bucket" {
   environment_tag            = local.environment
 }
 
-module "terraform_state_lock_dynamodb" {
-  source = "../modules/tf_state_lock_dynamodb"
-
-  name_tag        = "DynamoDB Terraform state lock table"
-  environment_tag = local.environment
-}
-
 module "oidc_github" {
   source = "../modules/oidc_github"
 }
