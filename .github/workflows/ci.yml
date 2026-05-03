@@ -8,6 +8,7 @@ on:
   workflow_dispatch: # enable manual execution
 
 env:
+  AWS_REGION: "us-east-1"
   COOKIECUTTER_PARAM_REPO_NAME: "infra"
   COOKIECUTTER_PARAM_ENVIRONMENT: "prod"
   TERRAFORM_DIR: "infra/terraform"
