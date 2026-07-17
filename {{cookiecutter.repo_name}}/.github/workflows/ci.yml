@@ -39,7 +39,7 @@ jobs:
         role-to-assume: ${{ '{{' }} secrets.{{ cookiecutter.__environment_upper }}_CI_ROLE_ARN {{ '}}' }}
         aws-region: ${{ '{{' }} env.AWS_REGION {{ '}}' }}
 
-    - uses: actions/setup-go@v6
+    - uses: actions/setup-go@v7
       with:
         go-version: 1.26.5
 
